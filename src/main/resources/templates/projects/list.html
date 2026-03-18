@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header-css}"></head>
+<body class="bg-light">
+    <div th:replace="~{fragments/header :: navbar}"></div>
+    <div class="container">
+        <div class="d-flex justify-content-between mb-3">
+            <h2>Mis Proyectos</h2>
+            <a th:href="@{/manage/projects/create}" class="btn btn-primary">Nuevo Proyecto</a>
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${projects}">
+                            <td th:text="${p.name}"></td>
+                            <td th:text="${p.description}"></td>
+                            <td>
+                                <a th:href="@{/manage/mocks(projectId=${p.id})}" class="btn btn-sm btn-info">Ver Mocks</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

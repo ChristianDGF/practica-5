@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/header :: header-css}"></head>
+
+<body class="bg-light">
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Configuración de Mock</h4>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/manage/mocks/save}" th:object="${mock}" method="post">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" th:text="#{label.name}">Nombre</label>
+                                    <input type="text" th:field="*{name}" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" th:text="#{label.path}">Ruta (ej: /usuarios)</label>
+                                    <input type="text" th:field="*{path}" class="form-control" placeholder="/mi-ruta"
+                                        required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label" th:text="#{label.method}">Método</label>
+                                    <select th:field="*{method}" class="form-select">
+                                        <option value="GET">GET</option>
+                                        <option value="POST">POST</option>
+                                        <option value="PUT">PUT</option>
+                                        <option value="DELETE">DELETE</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" th:text="#{label.code}">Código de Respuesta</label>
+                                    <input type="number" th:field="*{responseCode}" class="form-control" value="200">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="form-label" th:text="#{label.content}">Content-Type</label>
+                                    <input type="text" th:field="*{contentType}" class="form-control"
+                                        placeholder="application/json">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="form-label" th:text="#{label.body}">Cuerpo (JSON, XML, Text)</label>
+                                    <textarea th:field="*{responseBody}" class="form-control" rows="5"></textarea>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label" th:text="#{label.delay}">Demora (seg)</label>
+                                    <input type="number" th:field="*{delaySeconds}" class="form-control" value="0">
+                                </div>
+                                <div class="col-md-8 d-flex align-items-end">
+                                    <div class="form-check form-switch mb-2">
+                                        <input class="form-check-input" type="checkbox" th:field="*{jwtEnabled}">
+                                        <label class="form-check-label" th:text="#{label.jwt}">Habilitar Seguridad
+                                            JWT</label>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-12 border p-3 bg-white rounded">
+                                    <label class="form-label fw-bold">Headers de Respuesta </label>
+                                    <div id="headers-container">
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-5">
+                                                <input type="text" name="headerKeys" class="form-control"
+                                                    placeholder="Key (ej: Content-Type)">
+                                            </div>
+                                            <div class="col-5">
+                                                <input type="text" name="headerValues" class="form-control"
+                                                    placeholder="Value (ej: application/json)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Indica los encabezados que recibirá el cliente en la
+                                        respuesta. </small>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Proyecto Asociado</label>
+                                    <select name="projectId" class="form-select" required>
+                                        <option value="" disabled selected>Seleccione un proyecto...</option>
+                                        <option th:each="p : ${projects}" th:value="${p.id}" th:text="${p.name}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-success w-100" th:text="#{btn.save}">Guardar
+                                        Mock</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

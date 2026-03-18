@@ -1,0 +1,60 @@
+plugins {
+	id 'java'
+    id 'application'
+	id 'org.springframework.boot' version '3.5.10'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'cicc'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+application {
+    mainClass = 'cicc.project.ProjectApplication' 
+}
+
+bootRun {
+    mainClass = 'cicc.project.MockyApplication'
+}
+
+java {
+    sourceCompatibility = '21'
+    targetCompatibility = '21'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    // Web y UI
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Persistencia (JPA)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Cambiamos a MySQL como pide el esquema de la práctica
+    runtimeOnly 'com.mysql:mysql-connector-j' 
+
+    // Seguridad y JWT
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.session:spring-session-data-redis'
+
+    // Utilidades
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/header :: header-css}"></head>
+
+<body class="bg-light">
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 th:text="#{label.list_title}">Mis Endpoints</h2>
+            <a th:href="@{/manage/mocks/create}" class="btn btn-primary">Crear Nuevo Mock</a>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th th:text="#{label.name}">Nombre</th>
+                            <th th:text="#{label.path}">Ruta</th>
+                            <th th:text="#{label.method}">Método</th>
+                            <th>Status</th>
+                            <th>JWT</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="mock : ${mocks}">
+                            <td th:text="${mock.name}"></td>
+                            <td><code>/api/v1/mock<span th:text="${mock.path}"></span></code></td>
+                            <td><span class="badge bg-info" th:text="${mock.method}"></span></td>
+                            <td th:text="${mock.responseCode}"></td>
+                            <td>
+                                <span th:if="${mock.jwtEnabled}" class="badge bg-warning text-dark">SÍ</span>
+                                <span th:unless="${mock.jwtEnabled}" class="badge bg-secondary">NO</span>
+                            </td>
+                            <td>
+                                <a th:href="@{'/api/v1/mock' + ${mock.path}}" target="_blank"
+                                    class="btn btn-sm btn-outline-success">Test</a>
+                                <a th:if="${mock.jwtEnabled}" th:href="@{'/manage/tokens/generate/' + ${mock.id}}"
+                                    target="_blank" class="btn btn-sm btn-warning">Obtener JWT</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

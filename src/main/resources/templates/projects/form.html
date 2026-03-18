@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header-css}"></head>
+<body class="bg-light">
+    <div th:replace="~{fragments/header :: navbar}"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-dark text-white">Crear Proyecto</div>
+                    <div class="card-body">
+                        <form th:action="@{/manage/projects/save}" th:object="${project}" method="post">
+                            <div class="mb-3">
+                                <label class="form-label">Nombre del Proyecto</label>
+                                <input type="text" th:field="*{name}" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea th:field="*{description}" class="form-control"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Guardar Proyecto</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
